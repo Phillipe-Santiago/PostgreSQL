@@ -83,12 +83,3 @@ CREATE TABLE LogEmprestimoDevolucao (
 
     
 );
-
---Modificando status do livro de id 1 para emprestado para ser utilizado pela procedure criada
-UPDATE StatusLivro SET status = 'emprestado' WHERE id_livro = 1;
-
---Adicionando mais 2 status de livros para serem utilizados pela procedure criada
-INSERT INTO StatusLivro (status, id_livro)
-values
-	('disponivel', 2),
-	('manutencao', 3);

@@ -32,3 +32,42 @@ INSERT INTO Livro (id_categoria, titulo, autor, ISBN, ano_publicacao) VALUES
   (8, 'Outliers: Fora de Série', 'Malcolm Gladwell', '9788522009232', 2008),
   (9, 'Mindset: A Nova Psicologia do Sucesso', 'Carol S. Dweck', '9788532530001', 2006),
   (10, 'O Alquimista', 'Paulo Coelho', '9788532501716', 1988);
+
+ 
+ INSERT INTO Usuario (nome, endereco, contato) VALUES 
+  ('Alice', 'Rua K, 222', '777888999'),
+  ('Bob', 'Rua L, 333', '888999000'),
+  ('Carla', 'Rua M, 444', '999000111'),
+  ('Daniel', 'Rua N, 555', '111222333'),
+  ('Eva', 'Rua O, 666', '222333444'),
+  ('Fábio', 'Rua P, 777', '333444555'),
+  ('Gabriela', 'Rua Q, 888', '444555666'),
+  ('Hugo', 'Rua R, 999', '555666777'),
+  ('Isabela', 'Rua S, 1010', '666777888'),
+  ('Jorge', 'Rua T, 1111', '777888999');
+ 
+ 
+ --Adicionando livros para serem utilizados pela procedure criada
+INSERT INTO StatusLivro (status, id_livro)
+VALUES
+	('disponivel', 1),
+	('disponivel', 2),
+	('manutencao', 3),
+	('emprestado', 4),
+	('emprestado', 5),
+	('disponivel', 6),
+	('manutencao', 7),
+	('disponivel', 8),
+	('emprestado', 9),
+	('disponivel', 10),
+	('manutencao', 11),
+	('disponivel', 12),
+	('emprestado', 13),
+	('disponivel', 14),
+	('emprestado', 15),
+	('emprestado', 16),
+	('disponivel', 17),
+	('manutencao', 18),
+	('disponivel', 19),
+	('disponivel', 20);
+	

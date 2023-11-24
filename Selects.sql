@@ -7,3 +7,5 @@ select * from statuslivro;
 select * from usuario;
 
 select * from livroscategoria;
+select * from VisaoEmprestimosAtivos;
+select * from HistoricoEmprestimosPorUsuario;

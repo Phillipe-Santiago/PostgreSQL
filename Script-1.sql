@@ -53,6 +53,7 @@ BEGIN
 	livro_disponivel := CheckDisponibilidadeLivro(livro_id);
 	data_hoje := CURRENT_DATE;
 
+	--Condição criada para se um livro estiver disponível, troca para 'Emprestimo'
 	IF livro_disponivel THEN
 		INSERT INTO Emprestimo (id_livro, id_usuario, transacao, data_transacao)
 		VALUES (livro_id, usuario_id, 'Emprestimo', data_hoje);
@@ -82,6 +83,7 @@ declare
 begin
 	data_hoje := CURRENT_DATE;
 
+	--
 	insert into emprestimo (id_livro, id_usuario, transacao, data_transacao)
 	values (livro_id, usuario_id, 'Devolucao', data_hoje);
 
@@ -100,9 +102,11 @@ begin
 end;
 $$ language plpgsql;
 
+--Trigger responsavel por atualizar o log quando for inserido valores na tabela emprestimo
+
 create trigger LogEmprestimoDevolucao
 after insert 
-on emprestimo
+on Emprestimo
 for each row
 execute procedure LogTransacoes();
 
@@ -116,41 +120,3 @@ select * from usuario;
 
 call RegistrarEmprestimo(2, 1);
 call registrardevolucao(2, 1);
-
-/*
-CREATE PROCEDURE RegistrarEmprestimo(
-    IN p_usuario_id INTEGER,
-    IN p_livro_id INTEGER,
-    OUT p_emprestimo_id INTEGER,
-    OUT p_sucesso BOOLEAN
-)
-LANGUAGE plpgsql
-AS $$
-DECLARE
-    livro_disponivel BOOLEAN;
-BEGIN
-    -- Verificar a disponibilidade do livro usando a função CheckDisponibilidadeLivro
-	livro_disponivel = 'select CheckDisponibilidadeLivro('||p_livro_id||')'INTO livro_disponivel;
-
-    IF livro_disponivel THEN
-        -- Inserir novo empréstimo
-        INSERT INTO Emprestimo (id_livro, id_usuario, data_emprestimo, data_devolucao_esperada)
-        VALUES (p_livro_id, p_usuario_id, CURRENT_DATE, CURRENT_DATE + INTERVAL '14 days')
-        RETURNING id_emprestimo INTO p_emprestimo_id;
-
-        -- Atualizar o status do livro para 'emprestado'
-        UPDATE StatusLivro
-        SET status = 'emprestado'
-        WHERE id_livro = p_livro_id;
-
-        -- Definir sucesso como TRUE
-        p_sucesso := TRUE;
-    ELSE
-        -- Definir sucesso como FALSE se o livro não estiver disponível
-        p_sucesso := FALSE;
-    END IF;
-END;
-$$;
-
-select RegistrarEmprestimo(1, 3, p_emprestimo_id, p_sucesso);
-*/
